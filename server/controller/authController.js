@@ -121,7 +121,7 @@ export const login=async(req,res)=>{
 
     }catch(error){
         console.error("Login error:",error)
-        res.status(500)
+        res.status(500).message("Internal Server Error")
     }
 }
 

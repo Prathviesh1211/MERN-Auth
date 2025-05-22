@@ -1,9 +1,23 @@
 import React from 'react'
+import {Route, Routes} from "react-router-dom"
+  import { ToastContainer} from 'react-toastify';
+import Home from "./pages/Home"
+import Login from './pages/Login'
+import EmailVerify from './pages/EmailVerify'
+import ResetPassword from "./pages/ResetPassword"
 
 const App = () => {
   return (
     <div>
-      Hello
+
+      <ToastContainer/>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/verify-email' element={<EmailVerify/>}/>
+        <Route path='/reset-password' element={<ResetPassword/>}/>
+      </Routes>
+
     </div>
   )
 }
