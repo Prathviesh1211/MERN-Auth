@@ -6,6 +6,8 @@ export const AppContext=createContext();
 
 export const AppContextProvider=(props)=>{
 
+    axios.defaults.withCredentials=true;   //to send cookies with api request
+
     const backendUrl=import.meta.env.VITE_BACKEND_URL;
     const [isUserLoggedIn,setIsUserLoggedIn]=useState(false);
     const [userData,setUserData]=useState(false);
@@ -13,7 +15,7 @@ export const AppContextProvider=(props)=>{
     const getAuthState=async()=>{
 
         try{
-            const {data}=await axios.post(backendUrl+'/api/aut/is-auth');
+            const {data}=await axios.post(backendUrl+'/api/auth/is-auth');
             if(data.success){
                 setIsUserLoggedIn(true);
                 getUserData();
@@ -51,7 +53,8 @@ export const AppContextProvider=(props)=>{
         backendUrl,
         isUserLoggedIn,setIsUserLoggedIn,
         userData,setUserData,
-        getUserData
+        getUserData,
+        getAuthState
     }
 
     return(

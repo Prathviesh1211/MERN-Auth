@@ -175,7 +175,7 @@ export const sendVerifyOtp=async(req,res)=>{
 
         const user=await User.findById(userId);
 
-        if(user.isAccountverified){
+        if(user.isAccountVerified){
             return res.status(401).json({success:false,message:"Account already verified"});
         }
 
@@ -195,7 +195,7 @@ export const sendVerifyOtp=async(req,res)=>{
 
         await transporter.sendMail(mailOptions);
 
-        res.status(200).json({succcess:true,message:"Verification OTP sent on email"})
+        res.status(200).json({success:true,message:"Verification OTP sent on email"})
 
 
     }catch(error){
