@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import User from '../model/userModel.js'
 import transporter from '../config/nodeMailer.js'
+import {EMAIL_VERIFY_TEMPLATE,PASSWORD_RESET_TEMPLATE} from '../config/emailTemplates.js' 
 
 export const signup=async(req,res)=>{
     const {name,password,email}=req.body;
@@ -189,8 +190,9 @@ export const sendVerifyOtp=async(req,res)=>{
             from:process.env.SENDER_EMAIL,
             to:user.email,
             subject:'Account Verification OTP',
-            text:`Your OTP is ${otp}. Verfiy your account 
-            using this OTP`
+            // text:`Your OTP is ${otp}. Verfiy your account 
+            // using this OTP`
+            html:EMAIL_VERIFY_TEMPLATE.replace("{{otp}}",otp).replace("{{email}}",user.email)
         }
 
         await transporter.sendMail(mailOptions);
@@ -306,7 +308,8 @@ export const sendResetOtp=async(req,res)=>{
             from:process.env.SENDER_EMAIL,
             to:user.email,
             subject:'Password Reset OTP',
-            text:`Your OTP to reset your password is: ${otp}. It will expire in 15 minutes.`
+            // text:`Your OTP to reset your password is: ${otp}. It will expire in 15 minutes.`
+            html:PASSWORD_RESET_TEMPLATE.replace("{{otp}}",otp).replace("{{email}}",user.email)
         }
 
         await transporter.sendMail(mailOptions);
