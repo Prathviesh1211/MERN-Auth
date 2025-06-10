@@ -214,7 +214,7 @@ export const verifyEmail=async(req,res)=>{
 
     if(!userId || !otp){
         return res.status(401).json({
-            succcess:false,
+            success:false,
             message:"Missing Details"
         })
     }
@@ -225,7 +225,7 @@ export const verifyEmail=async(req,res)=>{
 
         if(!user){      
             return res.status(404).json({
-                succcess:false,
+                success:false,
                 message:"User not found"
             })
         }
